@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Configuration
-@ComponentScan({ "com.baeldung.um.web" })
+@ComponentScan({ "gov.nara.um.web" })
 @EnableWebMvc
 public class UmWebConfig implements WebMvcConfigurer {
 
