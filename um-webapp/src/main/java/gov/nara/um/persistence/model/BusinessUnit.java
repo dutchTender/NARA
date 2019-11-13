@@ -49,6 +49,10 @@ public class BusinessUnit  implements INameableEntity, INameableDto {
         this.users.add(user);
         return user;
     }
+
+    public void removeUser(User user){
+        this.users.remove(user);
+    }
     ///////////////////////////////////////////
 
     @Override

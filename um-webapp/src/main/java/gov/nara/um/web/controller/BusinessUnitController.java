@@ -65,7 +65,7 @@ public class BusinessUnitController extends AbstractController<BusinessUnit> imp
         return findOneInternal(id);
     }
 
-    // create
+    // create business unit
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
@@ -73,7 +73,7 @@ public class BusinessUnitController extends AbstractController<BusinessUnit> imp
         createInternal(resource);
     }
 
-    // update
+    // update user
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
@@ -93,7 +93,7 @@ public class BusinessUnitController extends AbstractController<BusinessUnit> imp
     }
 
 
-    // delete
+    // delete busiiness unit
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -103,7 +103,13 @@ public class BusinessUnitController extends AbstractController<BusinessUnit> imp
 
 
 
-    // add user
+    // remove user from business unit
+    @RequestMapping(value = "/removeUser/{id}/{uid}", method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.OK)
+    public void removeUserFromBusinessUnit(@PathVariable("id") final String id, @PathVariable("uid") final String uid) {
+        getService().removerUser(id, uid);
+
+    }
 
 
 

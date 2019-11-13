@@ -31,7 +31,6 @@ public class BusinessUnitServiceImpl extends AbstractService<BusinessUnit> imple
     }
 
     // API
-
     // find
 
     @Override
@@ -44,8 +43,9 @@ public class BusinessUnitServiceImpl extends AbstractService<BusinessUnit> imple
 
     // add user
     public BusinessUnit addUser(final String unitId, final String userId){
+
        Optional <BusinessUnit> businessUnitOptional =  dao.findById(Long.valueOf(unitId));
-        BusinessUnit businessUnit =  businessUnitOptional.get();
+       BusinessUnit businessUnit =  businessUnitOptional.get();
        Optional <User> userOptional = userDao.findById(Long.valueOf(userId));
        User user = userOptional.get();
 
@@ -58,6 +58,28 @@ public class BusinessUnitServiceImpl extends AbstractService<BusinessUnit> imple
 
        return businessUnit;
     }
+
+
+    public BusinessUnit removerUser(String unitId, String userId) {
+
+        Optional <BusinessUnit> businessUnitOptional =  dao.findById(Long.valueOf(unitId));
+        BusinessUnit businessUnit =  businessUnitOptional.get();
+        Optional <User> userOptional = userDao.findById(Long.valueOf(userId));
+        User user = userOptional.get();
+
+        if(businessUnit != null && user != null){
+            businessUnit.removeUser(user);
+            user.setBusinessUnit(null);
+            dao.save(businessUnit);
+            userDao.save(user);
+        }
+
+        return businessUnit;
+    }
+
+
+    // remove user
+
 
 
     // Spring
