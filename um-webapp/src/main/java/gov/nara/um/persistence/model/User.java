@@ -22,7 +22,6 @@ import gov.nara.common.persistence.model.INameableEntity;
         property = "id")
 @Table(name = "user")
 public class User implements INameableEntity, INameableDto {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
