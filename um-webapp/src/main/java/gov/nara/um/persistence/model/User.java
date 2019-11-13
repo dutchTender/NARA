@@ -6,33 +6,37 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import org.apache.commons.lang3.builder.ToStringBuilder;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 
 import gov.nara.common.interfaces.INameableDto;
 import gov.nara.common.persistence.model.INameableEntity;
 
 @Entity
+@Data
+@Getter
+@Setter
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id")
 public class User implements INameableEntity, INameableDto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "USER_ID")
+    @Column(name = "user_id")
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(name="user_name", unique = true, nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private String password;
+    @Column( nullable = false)
+    private String user_type;
 
-    @Column( /* nullable = false */)
-    private Boolean locked;
 
     // @formatter:off
-    @ManyToMany( /* cascade = { CascadeType.REMOVE }, */fetch = FetchType.EAGER)
-    @JoinTable(joinColumns = { @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID") }, inverseJoinColumns = { @JoinColumn(name = "ROLE_ID", referencedColumnName = "ROLE_ID") })
+    @ManyToMany( cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "user_id") }, inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "role_id") })
     private Set<Role> roles;
 
     @ManyToOne
@@ -42,14 +46,14 @@ public class User implements INameableEntity, INameableDto {
     public User() {
         super();
 
-        locked = false;
+
     }
 
     public User(final String nameToSet, final String passwordToSet, final Set<Role> rolesToSet) {
         super();
 
-        name = nameToSet;
-        password = passwordToSet;
+       name = nameToSet;
+        //password = passwordToSet;
         roles = rolesToSet;
     }
 
@@ -67,38 +71,24 @@ public class User implements INameableEntity, INameableDto {
 
     @Override
     public String getName() {
-        return name;
+
+        String returnValue = getName();
+        return returnValue;
     }
 
     public void setName(final String nameToSet) {
-        name = nameToSet;
+        this.name = nameToSet;
     }
 
-    public String getPassword() {
-        return password;
-    }
 
-    public void setPassword(final String passwordToSet) {
-        password = passwordToSet;
-    }
 
     public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(final Set<Role> rolesToSet) {
-        roles = rolesToSet;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
-
-    public Boolean getLocked() {
-        return locked;
-    }
-
-    public void setLocked(final Boolean lockedToSet) {
-        locked = lockedToSet;
-    }
-
-    //
 
     public BusinessUnit getBusinessUnit() {
         return businessUnit;
@@ -108,34 +98,15 @@ public class User implements INameableEntity, INameableDto {
         this.businessUnit = businessUnit;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        return result;
+
+
+    public String getUser_type() {
+        return user_type;
     }
 
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        final User other = (User) obj;
-        if (name == null) {
-            if (other.name != null)
-                return false;
-        } else if (!name.equals(other.name))
-            return false;
-        return true;
+    public void setUser_type(String user_type) {
+        this.user_type = user_type;
     }
 
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this).append("id", id).append("name", name).toString();
-    }
 
 }

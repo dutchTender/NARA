@@ -18,22 +18,13 @@ public final class UmConvertionUtil {
 
     // API
 
-    public static Set<Privilege> convertRolesToPrivileges(final Iterable<Role> roles) {
-        final Set<Privilege> privileges = Sets.<Privilege> newHashSet();
-        for (final Role roleOfUser : roles) {
-            privileges.addAll(roleOfUser.getPrivileges());
-        }
-        return privileges;
-    }
+
 
     public static Collection<String> convertPrivilegesToPrivilegeNames(final Collection<Privilege> privileges) {
         final Function<Object, String> toStringFunction = Functions.toStringFunction();
         return Collections2.transform(privileges, toStringFunction);
     }
 
-    public static Collection<String> convertRolesToPrivilegeNames(final Iterable<Role> roles) {
-        final Set<Privilege> privileges = convertRolesToPrivileges(roles);
-        return convertPrivilegesToPrivilegeNames(privileges);
-    }
+
 
 }

@@ -12,26 +12,37 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import gov.nara.common.interfaces.INameableDto;
 import gov.nara.common.persistence.model.INameableEntity;
 
 @Entity
+@Data
+@Getter
+@Setter
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Role implements INameableEntity, INameableDto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ROLE_ID")
+    @Column(name = "role_id")
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(name = "role_name", unique = true, nullable = false)
     private String name;
 
+    @Column(name = "role_description", unique = true, nullable = false)
+    private String description;
+
     // @formatter:off
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(joinColumns = { @JoinColumn(name = "ROLE_ID", referencedColumnName = "ROLE_ID") }, inverseJoinColumns = { @JoinColumn(name = "PRIV_ID", referencedColumnName = "PRIV_ID") })
-    private Set<Privilege> privileges;
+
     // @formatter:on
 
     public Role() {
@@ -43,11 +54,7 @@ public class Role implements INameableEntity, INameableDto {
         name = nameToSet;
     }
 
-    public Role(final String nameToSet, final Set<Privilege> privilegesToSet) {
-        super();
-        name = nameToSet;
-        privileges = privilegesToSet;
-    }
+
 
     // API
 
@@ -66,48 +73,17 @@ public class Role implements INameableEntity, INameableDto {
         return name;
     }
 
-    public void setName(final String nameToSet) {
-        name = nameToSet;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Set<Privilege> getPrivileges() {
-        return privileges;
+
+
+    public String getDescription() {
+        return description;
     }
 
-    public void setPrivileges(final Set<Privilege> privilegesToSet) {
-        privileges = privilegesToSet;
+    public void setDescription(String description) {
+        this.description = description;
     }
-
-    //
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        final Role other = (Role) obj;
-        if (name == null) {
-            if (other.name != null)
-                return false;
-        } else if (!name.equals(other.name))
-            return false;
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this).append("id", id).append("name", name).toString();
-    }
-
 }

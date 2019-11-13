@@ -10,11 +10,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import gov.nara.common.interfaces.INameableDto;
 import gov.nara.common.persistence.model.INameableEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Data
+@Getter
+@Setter
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Privilege implements INameableEntity, INameableDto {
 
     @Id
@@ -28,9 +38,7 @@ public class Privilege implements INameableEntity, INameableDto {
     @Column(unique = false, nullable = true)
     private String description;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "privileges", fetch = FetchType.EAGER)
-    private Set<Role> roles;
+
 
     public Privilege() {
         super();
@@ -70,13 +78,6 @@ public class Privilege implements INameableEntity, INameableDto {
         description = descriptionToSet;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(final Set<Role> rolesToSet) {
-        roles = rolesToSet;
-    }
 
     //
 

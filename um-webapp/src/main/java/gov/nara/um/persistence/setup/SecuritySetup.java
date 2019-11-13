@@ -57,7 +57,7 @@ public class SecuritySetup implements ApplicationListener<ContextRefreshedEvent>
         if (!setupDone) {
             logger.info("Executing Setup");
 
-            createPrivileges();
+            //createPrivileges();
             createRoles();
             createUsers();
 
@@ -90,28 +90,35 @@ public class SecuritySetup implements ApplicationListener<ContextRefreshedEvent>
     // Role
 
     private void createRoles() {
-        final Privilege canPrivilegeRead = privilegeService.findByName(Um.Privileges.CAN_PRIVILEGE_READ);
-        final Privilege canPrivilegeWrite = privilegeService.findByName(Um.Privileges.CAN_PRIVILEGE_WRITE);
-        final Privilege canRoleRead = privilegeService.findByName(Um.Privileges.CAN_ROLE_READ);
-        final Privilege canRoleWrite = privilegeService.findByName(Um.Privileges.CAN_ROLE_WRITE);
-        final Privilege canUserRead = privilegeService.findByName(Um.Privileges.CAN_USER_READ);
-        final Privilege canUserWrite = privilegeService.findByName(Um.Privileges.CAN_USER_WRITE);
+        //final Privilege canPrivilegeRead = privilegeService.findByName(Um.Privileges.CAN_PRIVILEGE_READ);
+       // final Privilege canPrivilegeWrite = privilegeService.findByName(Um.Privileges.CAN_PRIVILEGE_WRITE);
+       // final Privilege canRoleRead = privilegeService.findByName(Um.Privileges.CAN_ROLE_READ);
+       // final Privilege canRoleWrite = privilegeService.findByName(Um.Privileges.CAN_ROLE_WRITE);
+       // final Privilege canUserRead = privilegeService.findByName(Um.Privileges.CAN_USER_READ);
+       // final Privilege canUserWrite = privilegeService.findByName(Um.Privileges.CAN_USER_WRITE);
 
-        Preconditions.checkNotNull(canPrivilegeRead);
-        Preconditions.checkNotNull(canPrivilegeWrite);
-        Preconditions.checkNotNull(canRoleRead);
-        Preconditions.checkNotNull(canRoleWrite);
-        Preconditions.checkNotNull(canUserRead);
-        Preconditions.checkNotNull(canUserWrite);
+       // Preconditions.checkNotNull(canPrivilegeRead);
+       // Preconditions.checkNotNull(canPrivilegeWrite);
+       // Preconditions.checkNotNull(canRoleRead);
+       // Preconditions.checkNotNull(canRoleWrite);
+       // Preconditions.checkNotNull(canUserRead);
+       // Preconditions.checkNotNull(canUserWrite);
 
-        createRoleIfNotExisting(Um.Roles.ROLE_ADMIN, Sets.<Privilege> newHashSet(canUserRead, canUserWrite, canRoleRead, canRoleWrite, canPrivilegeRead, canPrivilegeWrite));
+        createRoleIfNotExisting(Um.Roles.ROLE_ADMIN, Sets.<Privilege> newHashSet());
     }
 
     final void createRoleIfNotExisting(final String name, final Set<Privilege> privileges) {
+
+
+        String role_name = name;
+        if (role_name == null){
+            role_name = "admin";
+        }
         final Role entityByName = roleService.findByName(name);
         if (entityByName == null) {
-            final Role entity = new Role(name);
-            entity.setPrivileges(privileges);
+            final Role entity = new Role(role_name);
+            entity.setDescription("admin role");
+
             roleService.create(entity);
         }
     }
@@ -119,7 +126,8 @@ public class SecuritySetup implements ApplicationListener<ContextRefreshedEvent>
     // User/User
 
     final void createUsers() {
-        final Role roleAdmin = roleService.findByName(Um.Roles.ROLE_ADMIN);
+        final Role roleAdmin = new Role("admin");
+        roleAdmin.setDescription("test admin role");
 
         // createUserIfNotExisting(SecurityConstants.ADMIN_USERNAME, SecurityConstants.ADMIN_PASS, Sets.<Role> newHashSet(roleAdmin));
         createUserIfNotExisting(Um.ADMIN_EMAIL, Um.ADMIN_PASS, Sets.<Role> newHashSet(roleAdmin));
@@ -129,6 +137,7 @@ public class SecuritySetup implements ApplicationListener<ContextRefreshedEvent>
         final User entityByName = userService.findByName(loginName);
         if (entityByName == null) {
             final User entity = new User(loginName, pass, roles);
+            entity.setUser_type("external");
             userService.create(entity);
         }
     }
