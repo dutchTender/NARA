@@ -71,16 +71,12 @@ public class User implements INameableEntity, INameableDto {
 
     @Override
     public String getName() {
-
-        String returnValue = getName();
-        return returnValue;
+        return name;
     }
 
-    public void setName(final String nameToSet) {
-        this.name = nameToSet;
+    public void setName(String name) {
+        this.name = name;
     }
-
-
 
     public Set<Role> getRoles() {
         return roles;
