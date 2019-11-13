@@ -81,6 +81,18 @@ public class BusinessUnitController extends AbstractController<BusinessUnit> imp
         updateInternal(id, resource);
     }
 
+
+    // add user to business unit
+    // need to allow empty request bodies
+
+    @RequestMapping(value = "/addUser/{id}/{uid}", method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.OK)
+    public void addUserToBusinessUnit(@PathVariable("id") final String id, @PathVariable("uid") final String uid) {
+        getService().addUser(id, uid);
+
+    }
+
+
     // delete
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -88,6 +100,12 @@ public class BusinessUnitController extends AbstractController<BusinessUnit> imp
     public void delete(@PathVariable("id") final Long id) {
         deleteByIdInternal(id);
     }
+
+
+
+    // add user
+
+
 
     // Spring
 

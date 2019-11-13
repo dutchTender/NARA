@@ -86,7 +86,8 @@ public class UserController extends AbstractController<User> implements ISorting
         updateInternal(id, resource);
     }
 
-    // delete
+
+
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)

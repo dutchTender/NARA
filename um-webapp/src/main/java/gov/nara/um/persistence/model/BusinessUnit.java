@@ -1,5 +1,7 @@
 package gov.nara.um.persistence.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import gov.nara.common.interfaces.INameableDto;
 import gov.nara.common.persistence.model.INameableEntity;
 
@@ -8,12 +10,14 @@ import java.util.Set;
 
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class BusinessUnit  implements INameableEntity, INameableDto {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "USER_ID")
+    @Column(name = "businessUnit_id")
     private Long id;
 
     @Column(unique = true, nullable = false)
@@ -37,6 +41,15 @@ public class BusinessUnit  implements INameableEntity, INameableDto {
         this.id = id;
 
     }
+
+    ////////////////////////////////////////////
+    // story #
+    ///////////////////////////////////////////
+    public User addUser(User user){
+        this.users.add(user);
+        return user;
+    }
+    ///////////////////////////////////////////
 
     @Override
     public String getName() {

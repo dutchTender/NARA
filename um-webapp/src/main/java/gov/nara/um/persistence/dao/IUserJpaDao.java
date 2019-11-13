@@ -8,4 +8,5 @@ import gov.nara.um.persistence.model.User;
 
 public interface IUserJpaDao extends JpaRepository<User, Long>, JpaSpecificationExecutor<User>, IByNameApi<User> {
     //
+
 }

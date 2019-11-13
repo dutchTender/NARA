@@ -5,5 +5,7 @@ import gov.nara.um.persistence.model.BusinessUnit;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-public interface iBusinessUnitDao extends JpaRepository<BusinessUnit, Long>, JpaSpecificationExecutor<BusinessUnit>, IByNameApi<BusinessUnit> {
+public interface IBusinessUnitDao extends JpaRepository<BusinessUnit, Long>, JpaSpecificationExecutor<BusinessUnit>, IByNameApi<BusinessUnit> {
+
+
 }

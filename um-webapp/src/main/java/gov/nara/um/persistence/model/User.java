@@ -4,12 +4,16 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import gov.nara.common.interfaces.INameableDto;
 import gov.nara.common.persistence.model.INameableEntity;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class User implements INameableEntity, INameableDto {
 
     @Id
@@ -31,7 +35,7 @@ public class User implements INameableEntity, INameableDto {
     @JoinTable(joinColumns = { @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID") }, inverseJoinColumns = { @JoinColumn(name = "ROLE_ID", referencedColumnName = "ROLE_ID") })
     private Set<Role> roles;
 
-    @OneToOne
+    @ManyToOne
     private BusinessUnit businessUnit;
 
     // @formatter:on
@@ -95,6 +99,14 @@ public class User implements INameableEntity, INameableDto {
     }
 
     //
+
+    public BusinessUnit getBusinessUnit() {
+        return businessUnit;
+    }
+
+    public void setBusinessUnit(BusinessUnit businessUnit) {
+        this.businessUnit = businessUnit;
+    }
 
     @Override
     public int hashCode() {
