@@ -111,8 +111,6 @@ public class BusinessUnitController extends AbstractController<BusinessUnit> imp
 
     }
 
-
-
     // Spring
 
     @Override

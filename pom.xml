@@ -1,10 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<description>REST with Spring Classes Module1-Lesson6</description>
-	<name>user-management-parent-l6-start</name>
+	<description>Nara ERA 2.0 API module</description>
+	<name>user-management-api-parent</name>
 	
 	<groupId>gov.nara</groupId>
-	<artifactId>user-management-parent-m1-l5-start</artifactId>
+	<artifactId>user-management-api-parent</artifactId>
 	<version>0.1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>	
 
@@ -23,19 +23,7 @@
 		</license>
 	</licenses>
 
-	<developers>
-		<developer>
-			<email>eugen@baeldung.com</email>
-			<name>Eugen Paraschiv</name>
-			<url>https://github.com/eugenp</url>
-			<id>eugenp</id>
-		</developer>
-	</developers>
 
-	<ciManagement>
-		<system>Jenkins</system>
-		<url>https://rest-security.ci.cloudbees.com/</url>
-	</ciManagement>
 
 	<build>
 
