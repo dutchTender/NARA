@@ -18,6 +18,8 @@ import java.util.Set;
 @Setter
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id")
+
+@Table(name = "business_unit_catalog")
 public class BusinessUnit  implements INameableEntity, INameableDto {
 
 
@@ -32,7 +34,7 @@ public class BusinessUnit  implements INameableEntity, INameableDto {
     @Column( nullable = false)
     private String org_code;
 
-    @Column( nullable = true)
+    @Column( name="ldap_id", nullable = true)
     private String ldapName;
 
     @OneToMany

@@ -2,15 +2,7 @@ package gov.nara.um.persistence.model;
 
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -28,6 +20,7 @@ import gov.nara.common.persistence.model.INameableEntity;
 @Setter
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id")
+@Table(name = "role")
 public class Role implements INameableEntity, INameableDto {
 
     @Id
@@ -35,10 +28,10 @@ public class Role implements INameableEntity, INameableDto {
     @Column(name = "role_id")
     private Long id;
 
-    @Column(name = "role_name", unique = true, nullable = false)
+    @Column(name = "role_name", unique = true)
     private String name;
 
-    @Column(name = "role_description", unique = true, nullable = false)
+    @Column(name = "role_description", unique = true)
     private String description;
 
     // @formatter:off
@@ -68,7 +61,7 @@ public class Role implements INameableEntity, INameableDto {
         id = idToSet;
     }
 
-    @Override
+
     public String getName() {
         return name;
     }

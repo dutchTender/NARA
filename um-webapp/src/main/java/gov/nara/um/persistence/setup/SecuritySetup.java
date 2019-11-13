@@ -58,8 +58,8 @@ public class SecuritySetup implements ApplicationListener<ContextRefreshedEvent>
             logger.info("Executing Setup");
 
             //createPrivileges();
-            createRoles();
-            createUsers();
+            //createRoles();
+            //createUsers();
 
             setupDone = true;
             logger.info("Setup Done");
@@ -114,10 +114,13 @@ public class SecuritySetup implements ApplicationListener<ContextRefreshedEvent>
         if (role_name == null){
             role_name = "admin";
         }
+
+        System.out.println("role name :"+name);
         final Role entityByName = roleService.findByName(name);
         if (entityByName == null) {
             final Role entity = new Role(role_name);
             entity.setDescription("admin role");
+            entity.setName("admin role");
 
             roleService.create(entity);
         }
@@ -128,6 +131,7 @@ public class SecuritySetup implements ApplicationListener<ContextRefreshedEvent>
     final void createUsers() {
         final Role roleAdmin = new Role("admin");
         roleAdmin.setDescription("test admin role");
+        roleAdmin.setName("admin role");
 
         // createUserIfNotExisting(SecurityConstants.ADMIN_USERNAME, SecurityConstants.ADMIN_PASS, Sets.<Role> newHashSet(roleAdmin));
         createUserIfNotExisting(Um.ADMIN_EMAIL, Um.ADMIN_PASS, Sets.<Role> newHashSet(roleAdmin));

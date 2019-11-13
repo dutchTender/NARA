@@ -20,6 +20,7 @@ import gov.nara.common.persistence.model.INameableEntity;
 @Setter
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id")
+@Table(name = "user")
 public class User implements INameableEntity, INameableDto {
 
     @Id
